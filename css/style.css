@@ -1,0 +1,343 @@
+/* ─────────────────────────────────────────
+   Jini Park – Portfolio Site
+   ───────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --sidebar-width: 300px;
+  --bg: #ffffff;
+  --text: #000000;
+  --active: #7B5EA7;
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --gap: 10px;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  padding: 40px 40px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  background: var(--bg);
+  overflow-y: auto;
+}
+
+.site-logo {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  text-decoration: none;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 32px;
+  line-height: 1.2;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+nav a {
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  text-decoration: none;
+  line-height: 2.2;
+}
+
+nav a:hover {
+  color: var(--active);
+}
+
+nav a.active {
+  color: var(--active);
+}
+
+/* ── Main content ── */
+.main-content {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+}
+
+/* ── Homepage ── */
+.home-gallery {
+  padding: 40px 30px 60px 20px;
+}
+
+.home-featured {
+  margin-bottom: 20px;
+}
+
+.home-featured img {
+  width: 100%;
+  display: block;
+}
+
+/* ── Gallery grid (all gallery pages) ── */
+.gallery-grid {
+  column-count: 3;
+  column-gap: var(--gap);
+  padding: 30px 20px 60px 20px;
+}
+
+.gallery-item {
+  break-inside: avoid;
+  margin-bottom: var(--gap);
+  display: inline-block;
+  width: 100%;
+}
+
+.gallery-item img {
+  width: 100%;
+  display: block;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.gallery-item img:hover {
+  opacity: 0.88;
+}
+
+.gallery-item__caption {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 400;
+  color: #222;
+  padding: 8px 6px 4px;
+  line-height: 1.5;
+}
+
+/* placeholder */
+.gallery-placeholder {
+  padding: 80px 20px;
+  text-align: center;
+  color: #bbb;
+  font-size: 13px;
+}
+
+/* ── CV / About ── */
+.cv-wrapper {
+  padding: 40px 60px 100px 20px;
+  max-width: 680px;
+}
+
+.cv-name {
+  font-size: 26px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin-bottom: 6px;
+}
+
+.cv-subtitle {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+  margin-bottom: 36px;
+}
+
+.cv-statement {
+  font-size: 13px;
+  line-height: 1.9;
+  color: #333;
+  margin-bottom: 48px;
+}
+
+.cv-section {
+  margin-bottom: 40px;
+}
+
+.cv-section__title {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 16px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #eee;
+}
+
+.cv-entry {
+  margin-bottom: 14px;
+}
+
+.cv-entry__year {
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 2px;
+}
+
+.cv-entry__title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111;
+  margin-bottom: 2px;
+}
+
+.cv-entry__detail {
+  font-size: 12px;
+  color: #666;
+}
+
+/* ── Lightbox ── */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox.open {
+  display: flex;
+}
+
+.lightbox__inner {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lightbox__img {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+}
+
+.lightbox__caption {
+  margin-top: 10px;
+  color: #ccc;
+  font-size: 11px;
+  text-align: center;
+}
+
+.lightbox__close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.8;
+}
+.lightbox__close:hover { opacity: 1; }
+
+.lightbox__prev,
+.lightbox__next {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 36px;
+  cursor: pointer;
+  opacity: 0.5;
+  padding: 16px;
+}
+.lightbox__prev:hover, .lightbox__next:hover { opacity: 1; }
+.lightbox__prev { left: 12px; }
+.lightbox__next { right: 12px; }
+
+/* ── Footer ── */
+footer {
+  margin-left: var(--sidebar-width);
+  padding: 20px 20px 20px 20px;
+  font-size: 11px;
+  color: #bbb;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* ── Mobile ── */
+.nav-toggle {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 200;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+  padding: 4px;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: #000;
+  transition: all 0.3s;
+}
+.nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 5px); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -5px); }
+
+@media (max-width: 860px) {
+  :root { --sidebar-width: 0px; }
+
+  .nav-toggle { display: flex; }
+
+  .sidebar {
+    width: 260px;
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    box-shadow: 2px 0 16px rgba(0,0,0,0.08);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main-content,
+  footer {
+    margin-left: 0;
+  }
+
+  .gallery-grid {
+    column-count: 2;
+    padding: 60px 12px 40px;
+  }
+
+  .home-gallery {
+    padding: 60px 12px 40px;
+  }
+}
+
+@media (max-width: 500px) {
+  .gallery-grid {
+    column-count: 1;
+  }
+}
