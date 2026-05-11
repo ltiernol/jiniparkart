@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painting | Jini Park</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header>
+    <a class="site-logo" href="index.html">Jini Park</a>
+
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav>
+      <a href="paint.html">Painting</a>
+      <a href="screenprint.html">Screenprinting</a>
+      <a href="3d.html">3D Works</a>
+      <a href="digital.html">Graphics</a>
+      <a href="draw.html">Works on Paper</a>
+      <a href="mural.html">Mural</a>
+      <a href="zbrush.html">Zbrush</a>
+      <a href="about.html">CV</a>
+    </nav>
+  </header>
+
+  <main>
+    <p class="page-title">Painting</p>
+
+    <div class="gallery-grid gallery-grid--single">
+
+      <div class="gallery-item">
+        <img
+          src="https://static.wixstatic.com/media/188dde_ea475536ca0c4804aacd3daacbab6260~mv2.jpg/v1/fill/w_1956,h_1572,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Unbounded%20Being-%20Layers%20of%20Identity.jpg"
+          alt="Unbounded Being – Layers of Identity"
+          loading="lazy"
+        />
+        <p class="gallery-item__caption">Unbounded Being – Layers of Identity</p>
+      </div>
+
+      <div class="gallery-item">
+        <img
+          src="https://static.wixstatic.com/media/188dde_e99e31299f464dbba551eb3c6342638f~mv2.jpg/v1/fill/w_1956,h_1238,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Tears%20of%20the%20Untainted%20Soul.jpg"
+          alt="Tears of the Untainted Soul"
+          loading="lazy"
+        />
+        <p class="gallery-item__caption">Tears of the Untainted Soul</p>
+      </div>
+
+      <div class="gallery-item">
+        <img
+          src="https://static.wixstatic.com/media/188dde_7dcd42c3ffa245be991dcf23604043c8~mv2.jpg/v1/fill/w_1956,h_800,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Bicheon%20-%20Flying%20Heavenly%20Deities.jpg"
+          alt="Bicheon – Flying Heavenly Deities"
+          loading="lazy"
+        />
+        <p class="gallery-item__caption">Bicheon – Flying Heavenly Deities</p>
+      </div>
+
+      <div class="gallery-item">
+        <img
+          src="https://static.wixstatic.com/media/188dde_cf2ef0246383438c8980936be0974fb7~mv2.jpg/v1/fill/w_1956,h_1268,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Echoes%20of%20the%20Diaspora.jpg"
+          alt="Echoes of the Diaspora"
+          loading="lazy"
+        />
+        <p class="gallery-item__caption">Echoes of the Diaspora</p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox__close" aria-label="Close">&times;</button>
+    <button class="lightbox__prev" aria-label="Previous">&#8592;</button>
+    <div class="lightbox__inner">
+      <img class="lightbox__img" src="" alt="" />
+      <p class="lightbox__caption"></p>
+    </div>
+    <button class="lightbox__next" aria-label="Next">&#8594;</button>
+  </div>
+
+  <footer>
+    <p>All images Copyright &copy; 2025 Jini Park. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
