@@ -47,7 +47,8 @@ if (lightbox) {
       items.push({
         src: img.src,
         alt: img.alt || '',
-        caption: cap ? cap.textContent.trim() : (img.alt || '')
+        title: img.dataset.title || '',
+        caption: cap ? cap.textContent.trim() : ''
       });
       img.addEventListener('click', () => open(i));
     });
