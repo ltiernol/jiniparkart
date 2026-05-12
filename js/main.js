@@ -58,6 +58,8 @@ if (lightbox) {
     current = idx;
     lb_img.src = items[current].src;
     lb_img.alt = items[current].alt;
+    lb_title.textContent = items[current].title;
+    lb_title.style.display = items[current].title ? '' : 'none';
     lb_cap.textContent = items[current].caption;
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
