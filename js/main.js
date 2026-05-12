@@ -50,11 +50,11 @@ if (lightbox) {
         title: img.dataset.title || '',
         caption: cap ? cap.textContent.trim() : ''
       });
-      img.addEventListener('click', () => open(i));
+      img.addEventListener('click', () => lbOpen(i));
     });
   }
 
-  function open(idx) {
+  function lbOpen(idx) {
     current = idx;
     lb_img.src = items[current].src;
     lb_img.alt = items[current].alt;
@@ -65,7 +65,7 @@ if (lightbox) {
     document.body.style.overflow = 'hidden';
   }
 
-  function close() {
+  function lbClose() {
     lightbox.classList.remove('open');
     document.body.style.overflow = '';
     lb_img.src = '';
@@ -73,13 +73,13 @@ if (lightbox) {
 
   buildItems();
 
-  lb_close.addEventListener('click', close);
-  lb_prev.addEventListener('click', () => { current = (current - 1 + items.length) % items.length; open(current); });
-  lb_next.addEventListener('click', () => { current = (current + 1) % items.length; open(current); });
-  lightbox.addEventListener('click', e => { if (e.target === lightbox) close(); });
+  lb_close.addEventListener('click', lbClose);
+  lb_prev.addEventListener('click', () => { current = (current - 1 + items.length) % items.length; lbOpen(current); });
+  lb_next.addEventListener('click', () => { current = (current + 1) % items.length; lbOpen(current); });
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) lbClose(); });
   document.addEventListener('keydown', e => {
     if (!lightbox.classList.contains('open')) return;
-    if (e.key === 'Escape') close();
+    if (e.key === 'Escape') lbClose();
     if (e.key === 'ArrowLeft') lb_prev.click();
     if (e.key === 'ArrowRight') lb_next.click();
   });
