@@ -32,7 +32,15 @@ if (lightbox) {
 
   function buildItems() {
     items = [];
-    document.querySelectorAll('.gallery-item img, .home-featured img').forEach((img, i) => {
+    const imgs = Array.from(document.querySelectorAll('.gallery-item img, .home-featured img'));
+
+    // Sort by the number in the filename (1.jpg < 2.jpg ... < 28.png)
+    // so lightbox navigation goes 1→2→3 (row order) not 1→4→7 (column order).
+    // Images without a number (homepage) keep their DOM order.
+    const num = src => parseInt(src.match(/\/(\d+)\.\w+$/)?.[1] ?? '999');
+    imgs.sort((a, b) => num(a.src) - num(b.src));
+
+    imgs.forEach((img, i) => {
       const el = img.closest('.gallery-item, .home-featured');
       const cap = el ? el.querySelector('.gallery-item__caption') : null;
       items.push({
