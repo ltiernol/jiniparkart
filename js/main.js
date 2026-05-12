@@ -22,6 +22,7 @@ document.querySelectorAll('nav a').forEach(a => {
 const lightbox = document.querySelector('.lightbox');
 if (lightbox) {
   const lb_img = lightbox.querySelector('.lightbox__img');
+  const lb_title = lightbox.querySelector('.lightbox__title');
   const lb_cap = lightbox.querySelector('.lightbox__caption');
   const lb_close = lightbox.querySelector('.lightbox__close');
   const lb_prev = lightbox.querySelector('.lightbox__prev');
