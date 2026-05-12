@@ -97,15 +97,20 @@ nav a.active {
 
 /* ── Gallery grid (all gallery pages) ── */
 .gallery-grid {
-  column-count: 3;
-  column-gap: var(--gap);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap);
   padding: 30px 20px 60px 20px;
 }
 
+.gallery-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
 .gallery-item {
-  break-inside: avoid;
-  margin-bottom: var(--gap);
-  display: inline-block;
   width: 100%;
 }
 
@@ -327,8 +332,11 @@ footer {
   }
 
   .gallery-grid {
-    column-count: 2;
     padding: 60px 12px 40px;
+  }
+
+  .gallery-col:last-child {
+    display: none;
   }
 
   .home-gallery {
@@ -338,6 +346,10 @@ footer {
 
 @media (max-width: 500px) {
   .gallery-grid {
-    column-count: 1;
+    flex-direction: column;
+  }
+
+  .gallery-col:last-child {
+    display: flex;
   }
 }
