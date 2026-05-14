@@ -4,8 +4,8 @@ const sidebar = document.querySelector('.sidebar');
 
 if (toggle && sidebar) {
   toggle.addEventListener('click', () => {
-    const open = sidebar.classList.toggle('open');
-    toggle.classList.toggle('open', open);
+    const isOpen = sidebar.classList.toggle('open');
+    toggle.classList.toggle('open', isOpen);
   });
 }
 
@@ -17,6 +17,21 @@ document.querySelectorAll('nav a').forEach(a => {
     a.classList.add('active');
   }
 });
+
+/* ── Video autoplay on scroll ── */
+const galleryVideos = document.querySelectorAll('.gallery-video');
+if (galleryVideos.length && 'IntersectionObserver' in window) {
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.play().catch(() => {});
+      } else {
+        entry.target.pause();
+      }
+    });
+  }, { threshold: 0.4 });
+  galleryVideos.forEach(v => videoObserver.observe(v));
+}
 
 /* ── Lightbox ── */
 const lightbox = document.querySelector('.lightbox');
@@ -31,14 +46,32 @@ if (lightbox) {
   let items = [];
   let current = 0;
 
-  function buildItems() {
+  const lbOpen = (idx) => {
+    current = idx;
+    lb_img.src = items[current].src;
+    lb_img.alt = items[current].alt;
+    lb_title.textContent = items[current].title;
+    lb_title.style.display = items[current].title ? '' : 'none';
+    lb_cap.textContent = items[current].caption;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const lbClose = () => {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    lb_img.src = '';
+  };
+
+  const buildItems = () => {
     items = [];
     const imgs = Array.from(document.querySelectorAll('.gallery-item img, .home-featured img'));
 
-    // Sort by the number in the filename (1.jpg < 2.jpg ... < 28.png)
-    // so lightbox navigation goes 1→2→3 (row order) not 1→4→7 (column order).
-    // Images without a number (homepage) keep their DOM order.
-    const num = src => parseInt(src.match(/\/(\d+)\.\w+$/)?.[1] ?? '999');
+    // Sort by number in filename so navigation goes 1→2→3 (row order) not column order.
+    const num = (src) => {
+      const m = src.match(/\/(\d+)\.\w+$/);
+      return m ? parseInt(m[1], 10) : 999;
+    };
     imgs.sort((a, b) => num(a.src) - num(b.src));
 
     imgs.forEach((img, i) => {
@@ -52,32 +85,15 @@ if (lightbox) {
       });
       img.addEventListener('click', () => lbOpen(i));
     });
-  }
-
-  function lbOpen(idx) {
-    current = idx;
-    lb_img.src = items[current].src;
-    lb_img.alt = items[current].alt;
-    lb_title.textContent = items[current].title;
-    lb_title.style.display = items[current].title ? '' : 'none';
-    lb_cap.textContent = items[current].caption;
-    lightbox.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function lbClose() {
-    lightbox.classList.remove('open');
-    document.body.style.overflow = '';
-    lb_img.src = '';
-  }
+  };
 
   buildItems();
 
   lb_close.addEventListener('click', lbClose);
   lb_prev.addEventListener('click', () => { current = (current - 1 + items.length) % items.length; lbOpen(current); });
   lb_next.addEventListener('click', () => { current = (current + 1) % items.length; lbOpen(current); });
-  lightbox.addEventListener('click', e => { if (e.target === lightbox) lbClose(); });
-  document.addEventListener('keydown', e => {
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lbClose(); });
+  document.addEventListener('keydown', (e) => {
     if (!lightbox.classList.contains('open')) return;
     if (e.key === 'Escape') lbClose();
     if (e.key === 'ArrowLeft') lb_prev.click();

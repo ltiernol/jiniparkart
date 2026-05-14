@@ -127,6 +127,11 @@ nav a.active {
   opacity: 0.88;
 }
 
+.gallery-video {
+  width: 100%;
+  display: block;
+}
+
 .gallery-item__caption {
   text-align: center;
   font-size: 11px;
