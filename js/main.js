@@ -1,29 +1,61 @@
-/* ── Page transition curtain ── */
-const curtain = document.createElement('div');
-curtain.className = 'page-curtain';
-document.body.appendChild(curtain);
+/* ── Page transition: split panels ── */
+const pcTop   = document.createElement('div');
+const pcBot   = document.createElement('div');
+const pcLabel = document.createElement('div');
+pcTop.className   = 'pc-top';
+pcBot.className   = 'pc-bottom';
+pcLabel.className = 'pc-label';
+document.body.append(pcTop, pcBot, pcLabel);
 
-// On load: curtain covers instantly, then lifts away
-curtain.style.transition = 'none';
-curtain.style.transform = 'translateY(0)';
-requestAnimationFrame(() => requestAnimationFrame(() => {
-  curtain.style.transition = '';
-  curtain.style.transform = 'translateY(-100%)';
-}));
+const PANEL_DUR = 650;
 
-// On nav click: curtain rises from below, then navigate
+const panelsClose = () => {
+  pcTop.classList.add('closed');
+  pcBot.classList.add('closed');
+};
+const panelsOpen = () => {
+  pcTop.classList.remove('closed');
+  pcBot.classList.remove('closed');
+};
+const labelShow = (text) => {
+  pcLabel.textContent = text;
+  pcLabel.classList.add('visible');
+};
+const labelHide = () => pcLabel.classList.remove('visible');
+
+// On load: panels cover instantly → show section name → peel away
+const sectionName = document.title.split('|')[0].trim();
+pcTop.style.transition  = 'none';
+pcBot.style.transition  = 'none';
+pcLabel.style.transition = 'none';
+panelsClose();
+labelShow(sectionName);
+
+setTimeout(() => {
+  pcTop.style.transition  = '';
+  pcBot.style.transition  = '';
+  pcLabel.style.transition = '';
+  panelsOpen();
+  labelHide();
+}, 520);
+
+// On nav click: panels slide in → label appears → navigate
 document.querySelectorAll('a[href]').forEach(link => {
   const href = link.getAttribute('href');
   if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
   link.addEventListener('click', e => {
     e.preventDefault();
-    curtain.style.transition = 'none';
-    curtain.style.transform = 'translateY(100%)';
+    const dest = link.textContent.trim();
+    pcTop.style.transition = 'none';
+    pcBot.style.transition = 'none';
+    panelsOpen();
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      curtain.style.transition = 'transform 0.6s cubic-bezier(0.76, 0, 0.24, 1)';
-      curtain.style.transform = 'translateY(0)';
+      pcTop.style.transition = '';
+      pcBot.style.transition = '';
+      panelsClose();
     }));
-    setTimeout(() => { window.location.href = href; }, 620);
+    setTimeout(() => labelShow(dest), 260);
+    setTimeout(() => { window.location.href = href; }, PANEL_DUR + 20);
   });
 });
 
