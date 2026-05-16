@@ -301,19 +301,48 @@ nav a.active {
 .lightbox__prev { left: 8px; }
 .lightbox__next { right: 8px; }
 
-/* ── Page transition curtain ── */
-.page-curtain {
+/* ── Page transition panels ── */
+.pc-top,
+.pc-bottom {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
   left: 0;
+  right: 0;
+  height: 50%;
   background: #111;
   z-index: 9999;
   pointer-events: none;
-  transform: translateY(-100%);
-  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform 0.65s cubic-bezier(0.87, 0, 0.13, 1);
 }
+.pc-top {
+  top: 0;
+  transform: translateY(-100%);
+  border-bottom: 1px solid #7B5EA7;
+}
+.pc-bottom {
+  bottom: 0;
+  transform: translateY(100%);
+}
+.pc-top.closed  { transform: translateY(0); }
+.pc-bottom.closed { transform: translateY(0); }
+
+.pc-label {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  color: #fff;
+  font-family: var(--font);
+  font-size: clamp(13px, 2.5vw, 22px);
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.pc-label.visible { opacity: 1; }
 
 /* ── Footer ── */
 footer {
