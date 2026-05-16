@@ -1,3 +1,32 @@
+/* ── Page transition curtain ── */
+const curtain = document.createElement('div');
+curtain.className = 'page-curtain';
+document.body.appendChild(curtain);
+
+// On load: curtain covers instantly, then lifts away
+curtain.style.transition = 'none';
+curtain.style.transform = 'translateY(0)';
+requestAnimationFrame(() => requestAnimationFrame(() => {
+  curtain.style.transition = '';
+  curtain.style.transform = 'translateY(-100%)';
+}));
+
+// On nav click: curtain rises from below, then navigate
+document.querySelectorAll('a[href]').forEach(link => {
+  const href = link.getAttribute('href');
+  if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    curtain.style.transition = 'none';
+    curtain.style.transform = 'translateY(100%)';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      curtain.style.transition = 'transform 0.6s cubic-bezier(0.76, 0, 0.24, 1)';
+      curtain.style.transform = 'translateY(0)';
+    }));
+    setTimeout(() => { window.location.href = href; }, 620);
+  });
+});
+
 /* ── Mobile sidebar toggle ── */
 const toggle = document.querySelector('.nav-toggle');
 const sidebar = document.querySelector('.sidebar');
