@@ -1,3 +1,18 @@
+/* ── Set --o on each gallery-item for mobile chronological ordering ── */
+document.querySelectorAll('.gallery-item').forEach(item => {
+  const img = item.querySelector('img, video');
+  if (!img) return;
+  let order;
+  if (img.dataset.order) {
+    order = parseInt(img.dataset.order, 10);
+  } else {
+    const src = img.src || img.getAttribute('src') || '';
+    const m = src.match(/\/(\d+)\.\w+$/);
+    order = m ? parseInt(m[1], 10) : 999;
+  }
+  item.style.setProperty('--o', order);
+});
+
 /* ── Page transition: split panels ── */
 const pcTop   = document.createElement('div');
 const pcBot   = document.createElement('div');
