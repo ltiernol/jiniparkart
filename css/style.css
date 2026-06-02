@@ -405,23 +405,18 @@ footer {
 
   .gallery-grid {
     padding: 60px 8px 40px;
+    flex-direction: column;
   }
 
-  .gallery-col:last-child {
-    display: none;
+  .gallery-col {
+    display: contents;
+  }
+
+  .gallery-item {
+    order: var(--o, 999);
   }
 
   .home-gallery {
     padding: 60px 12px 40px;
-  }
-}
-
-@media (max-width: 500px) {
-  .gallery-grid {
-    flex-direction: column;
-  }
-
-  .gallery-col:last-child {
-    display: flex;
   }
 }
