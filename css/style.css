@@ -178,6 +178,10 @@ nav a.active {
   margin-bottom: 48px;
 }
 
+.cv-statement p + p {
+  margin-top: 16px;
+}
+
 .cv-section {
   margin-bottom: 40px;
 }
