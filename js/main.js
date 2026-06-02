@@ -128,12 +128,14 @@ if (lightbox) {
     items = [];
     const imgs = Array.from(document.querySelectorAll('.gallery-item img, .home-featured img'));
 
-    // Sort by number in filename so navigation goes 1→2→3 (row order) not column order.
-    const num = (src) => {
-      const m = src.match(/\/(\d+)\.\w+$/);
+    // Prefer explicit data-order, fall back to filename number, so navigation
+    // goes 1→2→3 (row order) not column order.
+    const num = (img) => {
+      if (img.dataset.order) return parseInt(img.dataset.order, 10);
+      const m = img.src.match(/\/(\d+)\.\w+$/);
       return m ? parseInt(m[1], 10) : 999;
     };
-    imgs.sort((a, b) => num(a.src) - num(b.src));
+    imgs.sort((a, b) => num(a) - num(b));
 
     imgs.forEach((img, i) => {
       const el = img.closest('.gallery-item, .home-featured');
